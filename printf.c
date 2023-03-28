@@ -63,7 +63,15 @@ int _printf(const char *format, ...)
 				printed_characters++;
 				format_ptn++;
 			}
+
 		}
+		else
+		{
+			_putchar(format[format_ptn]);
+			printed_characters++;
+			format_ptn++;
+		}
+
 	}
 	va_end(parameters);
 
