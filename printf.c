@@ -1,8 +1,15 @@
 #include "main.h"
 #include <stdarg.h>
+
+int _puts(char *str);
+
+
 /**
+ * _puts - function
+ * Description: prints string
+ * @str: string
  *
- *
+ * Return: string position
  */
 
 int _puts(char *str)
@@ -16,8 +23,13 @@ int _puts(char *str)
 
 	return (str_ptn);
 }
+
 /**
+ * _printf - function
+ * Description: prints number of characters
+ * @format: string
  *
+ * Return: number of printed characters
  */
 
 int _printf(const char *format, ...)
@@ -25,12 +37,7 @@ int _printf(const char *format, ...)
 	va_list parameters;
 	int format_ptn, printed_characters;
 
-
 	va_start(parameters, format);
-/**
- * create code
- *
- */
 
 	format_ptn = 0;
 	printed_characters = 0;
@@ -57,14 +64,7 @@ int _printf(const char *format, ...)
 				format_ptn++;
 			}
 		}
-		else
-		{
-			_putchar(format[format_ptn]);
-			printed_characters++;
-			format_ptn++;
-		}
 	}
-
 	va_end(parameters);
 
 	return (printed_characters);
