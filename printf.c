@@ -1,29 +1,6 @@
 #include "main.h"
 #include <stdarg.h>
 
-int _puts(char *str);
-
-
-/**
- * _puts - function
- * Description: prints string
- * @str: string
- *
- * Return: string position
- */
-
-int _puts(char *str)
-{
-	int str_ptn;
-
-	for (str_ptn = 0; str[str_ptn] != '\0'; str_ptn++)
-	{
-		_putchar(str[str_ptn]);
-	}
-
-	return (str_ptn);
-}
-
 /**
  * _printf - function
  * Description: prints number of characters
@@ -35,44 +12,45 @@ int _puts(char *str)
 int _printf(const char *format, ...)
 {
 	va_list parameters;
-	int format_ptn, printed_characters;
+	int printed_characters = 0;
 
 	va_start(parameters, format);
 
-	format_ptn = 0;
-	printed_characters = 0;
-
-	while (format[format_ptn])
+	while (*format)
 	{
-		if (format[format_ptn] == '%')
+		if (*format == '%')
 		{
-			if (format[format_ptn + 1] == 'c')
+			if (*(format + 1) == 'c')
 			{
-				_putchar(va_arg(parameters, int));
+				int c = va_arg(parameters, int);
+				putchar(c);
 				printed_characters++;
-				format_ptn += 2;
+				break;
 			}
-			else if (format[format_ptn + 1] == 's')
+			else if (*(format + 1) == 's')
 			{
-				printed_characters = _puts(va_arg(parameters, char *));
-				format_ptn += 2;
-			}
-			else
-			{
-				_putchar(format[format_ptn]);
+				char *s = va_arg(parameters, char *);
+				
+				s++;
+
 				printed_characters++;
-				format_ptn++;
 			}
+			break;
 
 		}
 		else
 		{
-			_putchar(format[format_ptn]);
+			putchar('%');
 			printed_characters++;
-			format_ptn++;
+			break;
 		}
+		format += 2;
 
+		putchar(*format);
+		format++;
+		printed_characters++;
 	}
+	
 	va_end(parameters);
 
 	return (printed_characters);
