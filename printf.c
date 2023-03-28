@@ -20,37 +20,46 @@ int _printf(const char *format, ...)
 	{
 		if (*format == '%')
 		{
-			if (*(format + 1) == 'c')
+			switch (*(format + 1))
+			{	
+			case 'c':
 			{
 				int c = va_arg(parameters, int);
 				putchar(c);
 				printed_characters++;
 				break;
 			}
-			else if (*(format + 1) == 's')
+			case 's':
 			{
 				char *s = va_arg(parameters, char *);
-				
+				while (*s)
+				{
+				putchar(*s);
+
 				s++;
 
 				printed_characters++;
-			}
-			break;
+				}
+				break;
 
-		}
-		else
-		{
+			}	
+			case '%':
+			{
 			putchar('%');
 			printed_characters++;
 			break;
+			}
 		}
 		format += 2;
+		}
+		else
+		{
 
 		putchar(*format);
 		format++;
 		printed_characters++;
+		}
 	}
-	
 	va_end(parameters);
 
 	return (printed_characters);
